@@ -1,0 +1,3 @@
+[01-Nov-2025 15:28:18 Europe/Berlin] send_message.php error: Cannot add or update a child row: a foreign key constraint fails (`tlims_db`.`messages`, CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`reciever_id`) REFERENCES `tenants` (`id`) ON DELETE CASCADE)
+[01-Nov-2025 15:28:23 Europe/Berlin] send_message.php error: Cannot add or update a child row: a foreign key constraint fails (`tlims_db`.`messages`, CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`reciever_id`) REFERENCES `tenants` (`id`) ON DELETE CASCADE)
+[01-Nov-2025 15:29:59 Europe/Berlin] send_message.php error: Cannot add or update a child row: a foreign key constraint fails (`tlims_db`.`messages`, CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`reciever_id`) REFERENCES `tenants` (`id`) ON DELETE CASCADE)

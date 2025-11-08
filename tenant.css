@@ -1,0 +1,722 @@
+/* Base styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f9fafb; /* bg-gray-50 */
+    min-height: 100vh;
+    display: flex;
+    color: #333;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    width: 240px;
+    background-color: #fff;
+    border-right: 1px solid #eee; /* border-gray-200 */
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 0.5rem; /* pt-2 */
+    z-index: 10;
+    transition: width 0.3s ease;
+}
+
+/* Ensure the title block doesn't wrap or get cut off */
+.logo-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* The main content area */
+.main {
+    margin-left: 240px;
+    padding: 30px;
+    flex: 1;
+    overflow-y: auto;
+    transition: margin-left 0.3s ease;
+}
+
+/* Menu Links common style */
+.menu a, .bottom a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    text-decoration: none;
+    color: #444; /* text-gray-700 */
+    font-size: 14px;
+    margin: 5px 12px; /* Adjusted margin to allow for full-width background effect */
+    border-radius: 6px; /* rounded-md */
+    transition: background-color 0.2s, color 0.2s;
+    position: relative;
+}
+
+.menu a:hover:not(.active) {
+    background-color: #f3f4f6; /* hover:bg-gray-100 */
+    color: #1f2937;
+}
+
+/* Active link styling */
+.menu a.active {
+    background-color: #e8f0fe; /* bg-blue-50 */
+    color: #2563eb; /* text-blue-700 */
+    font-weight: 600;
+}
+
+/* Badge style */
+.badge {
+    position: absolute;
+    right: 18px; /* Adjusted to match menu link padding */
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 12px;
+    font-weight: 600;
+    color: white;
+    background: #f97316; /* bg-orange-500 */
+}
+
+/* Bottom section links */
+.bottom { 
+    border-top: 1px solid #eee; 
+    padding: 15px 0; /* Padding will be applied to the links directly */
+    display: flex; 
+    flex-direction: column; 
+    gap: 5px; /* Reduced gap */
+}
+
+.bottom a {
+    margin: 0 12px;
+    padding: 10px 18px;
+}
+
+.bottom a.logout { 
+    color: #dc2626; /* text-red-600 */
+    font-weight: 600; 
+}
+.bottom a.settings {
+    color: #444;
+}
+.bottom a.settings:hover, .bottom a.logout:hover {
+    background-color: #f3f4f6;
+}
+.bottom a.settings:hover {
+     color: #2563eb;
+}
+
+.bottom a.logout i {
+    color: #dc2626;
+}
+
+/* Dashboard Content Styles (Tailwind equivalent classes used in HTML, but here for reference) */
+.welcome-box { 
+    /* Same as px-5 py-5 rounded-xl shadow-md bg-white */
+    background-color:#fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Card Styles */
+.card { 
+    background:#fff; 
+    border-radius:10px; 
+    padding:20px; 
+    box-shadow:0 2px 5px rgba(0,0,0,0.05); 
+    border-left: 4px solid #eee; /* Light border for visual segmentation */
+}
+
+/* Activity Items (Using custom background for color blocks) */
+.activity-item { 
+    display:flex; 
+    align-items:center; 
+    justify-content:space-between; 
+    padding:15px; 
+    border-radius:10px; 
+    margin-bottom:10px; 
+    background: #fff;
+    box-shadow:0 1px 3px rgba(0,0,0,0.05);
+}
+.activity-item.green { background: #e6f9ed; border-left: 3px solid #16a34a; }
+.activity-item.green strong { color:#16a34a; }
+.activity-item.blue { background: #eef5ff; border-left: 3px solid #2563eb; }
+.activity-item.blue strong { color:#2563eb; }
+.activity-item.orange { background: #fffbeb; border-left: 3px solid #f97316; } 
+.activity-item.orange strong { color:#f97316; }
+
+
+/* ==================== Responsive Overrides ==================== */
+@media (max-width: 768px) {
+    .sidebar { 
+        width: 60px; /* Collapsed state */
+    }
+    .main {
+        margin-left: 60px;
+        padding: 15px;
+    }
+    .sidebar-header {
+        justify-content: center; /* Center the logo block in collapsed state */
+        padding: 15px 5px;
+    }
+    .sidebar-header .title-block { 
+        display: none; /* Hide text */
+    }
+    .sidebar .menu-toggle { 
+        display: none !important; /* Hide menu toggle on mobile */
+    }
+    
+    /* Hide text in collapsed state */
+    .menu a span, .bottom a span { 
+        display: none;
+    }
+    
+    /* Badge visibility in collapsed state: only show icon, badge hides */
+    .badge {
+        display: none;
+    }
+    
+    /* Expanded state for mobile */
+    .sidebar.expanded {
+        width: 240px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    .main.expanded {
+        margin-left: 240px;
+    }
+    .sidebar.expanded .sidebar-header .title-block {
+        display: block; /* Show title block when expanded */
+    }
+    .sidebar.expanded .menu a span, 
+    .sidebar.expanded .bottom a span {
+        display: inline; /* Show text when expanded */
+    }
+    .sidebar.expanded .sidebar-header {
+        justify-content: space-between; /* Restore header layout */
+        padding: 15px;
+    }
+    .sidebar.expanded .badge {
+        display: inline; /* Show badge when expanded */
+    }
+    
+    .menu a, .bottom a {
+        margin: 5px 0; /* Use full sidebar width for touch target */
+        border-radius: 0;
+    }
+
+    /* Mobile Content Adjustments */
+    .welcome-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .summary {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .summary-item {
+        flex: 1;
+    }
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ---------------- Favorites Page Styles ---------------- */
+
+/* Properties Grid */
+.properties-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .properties-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Property Card */
+.property-card {
+    background-color: #fff;
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.property-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Card Image & Badge */
+.card-image {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.badge-overlay {
+    font-size: 0.75rem;
+}
+
+/* Favorite Icon */
+.favorite-icon {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.favorite-icon:hover {
+    transform: scale(1.2);
+}
+
+/* Card Content */
+.card-content {
+    padding: 1rem;
+}
+
+.title-row h2 {
+    font-size: 1rem;
+}
+
+.rating i {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Amenities Tags */
+.amenities .tag {
+    font-size: 0.7rem;
+}
+
+/* Buttons */
+.btn {
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.contact-actions .btn i {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Modal placeholder (if you plan to open a card in modal) */
+.modal {
+    /* FIX: Para i-center ang modal sa tibuok screen */
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Overlay */
+    /* Centering: kinahanglan gyud ni */
+    display: flex; /* Dili mo-display ang flex kung display: none ang initial value */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Siguraduhon nga naa sa ibabaw sa tanan */
+    overflow-y: auto; /* Para sa gagmay nga screen */
+}
+
+
+/* ... (rest sa CSS) ...
+/* --- Messages Page Styles --- */
+.messages-container {
+  display: flex;
+  gap: 1rem;
+  height: 600px; /* adjust as needed */
+  box-sizing: border-box;
+}
+
+/* Prevent layout shifting when conversations update */
+.conversation-list {
+  flex: 1;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* consistent spacing */
+  overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.conversation-item {
+  transition: background 0.2s;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.conversation-item:hover {
+  background-color: #f3f4f6; /* Tailwind gray-50 */
+}
+
+.conversation-item.active {
+  background-color: #dbeafe; /* Tailwind blue-100 */
+}
+
+.avatar-sm {
+  font-size: 0.875rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* For the main chat area */
+.chat-window {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+/* Header fix to prevent resizing */
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border-bottom: 1px solid #e5e7eb; /* Tailwind gray-200 */
+  flex-shrink: 0;
+}
+
+.chat-actions i {
+  cursor: pointer;
+}
+
+/* Message area fix */
+.message-history {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.75rem;
+  box-sizing: border-box;
+}
+
+.message {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.message.sent p {
+  background-color: #dbeafe; /* Tailwind blue-100 */
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+/* Input area stays fixed at bottom */
+.chat-input {
+  display: flex;
+  padding: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.chat-input input {
+  flex: 1;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  outline: none;
+}
+
+.chat-input button {
+  background-color: #3b82f6; /* Tailwind blue-500 */
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Fix scrollbars from causing layout jump */
+body {
+  overflow-y: scroll;
+}
+
+
+/* === NOTIFICATIONS PAGE CSS === */
+
+/* Reset and Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f9fafb;
+    color: #333;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    width: 240px;
+    background: #fff;
+    border-right: 1px solid #eee;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 10px;
+    z-index: 10;
+}
+.sidebar-header {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+.logo-block { display: flex; align-items: center; gap: 8px; }
+.logo-circle {
+    width: 30px;
+    height: 30px;
+    background: #2563eb;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+.title-block h2 { color: #2563eb; font-size: 14px; font-weight: 700; margin:0; }
+.title-block p { font-size: 10px; color: #666; font-weight: 500; margin-top:0; }
+.menu-icon { color:#333; width:20px; height:20px; cursor:pointer; }
+
+/* Menu Links */
+.menu a {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 18px;
+    font-size:14px;
+    color:#444;
+    text-decoration:none;
+    position:relative;
+    margin:5px 0;
+    transition: background 0.2s;
+}
+.menu a:hover { background:#f8f8f8; }
+.menu a.active {
+    background:#e8f0fe;
+    border-left:3px solid #2563eb;
+    color:#2563eb;
+    font-weight:600;
+}
+.menu a i { width:18px; height:18px; }
+
+/* Badges */
+.badge {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 12px;
+    position: absolute;
+    right: 15px;
+    font-weight: 600;
+    color: #fff;
+}
+.badge-favorites { background: #f97316; }
+.badge-messages { background: #3b82f6; }
+.badge-notifications { background: #ef4444; }
+
+/* Bottom Links */
+.bottom {
+    border-top:1px solid #eee;
+    padding:15px 18px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+.bottom a {
+    display:flex;
+    gap:10px;
+    align-items:center;
+    text-decoration:none;
+    font-size:14px;
+    color:#444;
+}
+.bottom a.logout { color:#dc2626; font-weight:600; }
+
+/* --- Main Content --- */
+.main {
+    margin-left:240px;
+    flex:1;
+    padding:30px;
+    overflow-y:auto;
+}
+.page.hidden { display:none; }
+
+/* Page Header */
+.page-header {
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom:25px;
+}
+.page-header h1 { font-size:28px; color:#333; }
+.subtitle { font-size:14px; color:#666; margin-top:5px; }
+.unread-count {
+    background: #f97316;
+    color:white;
+    font-size:14px;
+    font-weight:600;
+    padding:6px 12px;
+    border-radius:8px;
+}
+#unreadCount { font-size:18px; font-weight:700; }
+
+/* --- Notification List --- */
+.notification-list { display:flex; flex-direction:column; gap:15px; margin-bottom:30px; }
+
+.notification-item {
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    padding:15px;
+    display:flex;
+    gap:15px;
+    border-left:5px solid;
+    position:relative;
+    cursor:pointer;
+    transition: all 0.2s;
+}
+.notification-item:hover { box-shadow:0 4px 10px rgba(0,0,0,0.1); }
+
+/* Priority Bar */
+.notification-item.high { border-left-color:#ef4444; }
+.notification-item.medium { border-left-color:#f59e0b; }
+.notification-item.low { border-left-color:#10b981; }
+
+/* Icon Section */
+.icon-section {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:5px;
+    flex-shrink:0;
+}
+.icon-section i { width:24px; height:24px; color:#2563eb; }
+
+/* Content Section */
+.content-section { flex-grow:1; }
+.title-line { display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; }
+.title { font-size:16px; font-weight:600; color:#333; margin:0; }
+.description { font-size:14px; color:#555; margin-bottom:5px; }
+.timestamp { font-size:12px; color:#999; }
+
+/* Priority Badge */
+.priority-badge {
+    font-size:11px;
+    font-weight:600;
+    padding:2px 8px;
+    border-radius:12px;
+    text-transform:uppercase;
+}
+.high-badge { background:#fee2e2; color:#ef4444; }
+.medium-badge { background:#fef3c7; color:#f59e0b; }
+.low-badge { background:#d1fae5; color:#10b981; }
+
+/* Status Dot */
+.status-dot {
+    position:absolute;
+    top:15px;
+    right:15px;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+}
+.unread-dot { background:#2563eb; }
+.read-dot { background:#ccc; }
+
+/* Read Notifications Style */
+.notification-item[data-read="true"] {
+    opacity:0.7;
+    background:#fcfcfc;
+}
+.notification-item[data-read="true"] .title { color:#666; }
+.notification-item[data-read="true"]:hover { opacity:1; }
+
+/* --- Quick Actions --- */
+.quick-actions {
+    background:#fff;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+.quick-actions h2 {
+    font-size:18px;
+    font-weight:600;
+    color:#2563eb;
+    margin-bottom:15px;
+}
+.action-buttons { display:flex; gap:10px; flex-wrap:wrap; }
+.action-btn {
+    padding:10px 18px;
+    border-radius:8px;
+    border:1px solid #d1d5db;
+    background:#f9fafb;
+    color:#333;
+    font-weight:500;
+    cursor:pointer;
+    transition:background 0.2s,border-color 0.2s;
+}
+.action-btn:hover { background:#e5e7eb; border-color:#9ca3af; }
+
+/* --- Responsive --- */
+@media(max-width:768px) {
+    .sidebar { width:60px; overflow:hidden; transition:width 0.3s; }
+    .sidebar:hover { width:240px; }
+    .sidebar-header .title-block { display:none; }
+    .sidebar-header { justify-content:center; }
+    .menu a span, .bottom a span, .sidebar:hover .menu a span, .sidebar:hover .bottom a span { display:block; }
+    .menu a span, .bottom a span { display:none; }
+    .main { margin-left:60px; padding:15px; }
+    .page-header { flex-direction:column; align-items:flex-start; margin-bottom:15px; }
+    .unread-count { margin-top:10px; align-self:flex-start; }
+
+    .notification-item { padding:10px; gap:10px; }
+    .icon-section { display:none; }
+    .title-line { flex-direction:column; align-items:flex-start; gap:5px; }
+    .status-dot { top:10px; right:10px; }
+    .action-buttons { flex-direction:column; }
+    .action-btn { width:100%; }
+}

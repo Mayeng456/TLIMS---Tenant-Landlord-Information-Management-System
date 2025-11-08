@@ -166,7 +166,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       }
       return true;
     }
-
+    //HELLO 
     // Auto-open signup tab
     document.addEventListener("DOMContentLoaded", () => {
       if (location.search.includes('tab=signup')) showForm('signupForm');

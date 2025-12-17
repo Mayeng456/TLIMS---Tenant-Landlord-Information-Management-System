@@ -1,5 +1,5 @@
 <?php
-// Final/geocode_proxy.phpphhp
+// Final/geocode_proxy.php
 
 header('Content-Type: application/json');
 
